@@ -77,7 +77,7 @@ const placeStripeOrder = async (req, res) => {
           product_data: {
             name: item.name,
           },
-          unit_amount: (Math.round(item.price)+50)*100,
+          unit_amount: (Math.round(item.price) + 50) * 100,
         },
         quantity: Object.values(item.quantity).reduce((a, b) => a + b, 0),
       })),
@@ -87,8 +87,8 @@ const placeStripeOrder = async (req, res) => {
       shipping_address_collection: {
         allowed_countries: ["IN"],
       },
-      success_url: `http://localhost:5173/status/update/${newOrder._id}`, // user redirected here on success
-      cancel_url: `http://localhost:5173/status/delete/${newOrder._id}`, // user redirected here if cancels or fails
+      success_url: `${process.env.Front_End_URL}/status/update/${newOrder._id}`, // user redirected here on success
+      cancel_url: `${process.env.Front_End_URL}/status/delete/${newOrder._id}`, // user redirected here if cancels or fails
     });
 
     // 3. Send session URL to client to redirect
