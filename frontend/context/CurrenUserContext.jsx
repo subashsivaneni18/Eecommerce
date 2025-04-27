@@ -18,6 +18,8 @@ const fetcher = async (url, token) => {
 };
 
 const CurrentUserContextProvider = ({ children }) => {
+
+  const VITE_BACKEND_HOST_URL = import.meta.env.VITE_BACKEND_HOST_URL;
   // Get token from localStorage on first load
   const [token, setToken] = useState(
     () => localStorage.getItem("userToken") || ""
@@ -25,7 +27,7 @@ const CurrentUserContextProvider = ({ children }) => {
 
   // SWR hook to fetch user data only if token is available
   const { data, isLoading, error, mutate } = useSWR(
-    token ? "http://localhost:4000/api/user/currentUser" : null,
+    token ? `${VITE_BACKEND_HOST_URL}/api/user/currentUser` : null,
     (url) => fetcher(url, token)
   );
 
