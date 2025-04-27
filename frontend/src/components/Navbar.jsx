@@ -14,6 +14,8 @@ const Navbar = () => {
 
   const path = window.location.pathname;
 
+  console.log(cartCount)
+
   useEffect(() => {
 
     const handleClickOutside = (event) => {

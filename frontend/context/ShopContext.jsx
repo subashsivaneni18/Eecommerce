@@ -67,8 +67,32 @@ const ShopContextProvider = ({ children }) => {
     }, 0).toFixed(2);
   };
 
+    const updateQuantity = (productId, size, action) => {
+      const updatedCart = { ...cartData };
+
+      const currentQty = updatedCart[productId]?.[size] || 0;
+
+      if (action === "increment") {
+        updatedCart[productId][size] = currentQty + 1;
+      } else if (action === "decrement") {
+        if (currentQty > 1) {
+          updatedCart[productId][size] = currentQty - 1;
+        } else {
+          delete updatedCart[productId][size];
+          if (Object.keys(updatedCart[productId]).length === 0) {
+            delete updatedCart[productId];
+          }
+        }
+      }
+
+      setCartData(updatedCart);
+    };
+
 
   const [query,setQuery] = useState("")
+
+  const cartTotal = getCartTotal()
+  const cartCount=getCartCount()
 
   const value = {
     products,
@@ -79,7 +103,12 @@ const ShopContextProvider = ({ children }) => {
     getCartCount,
     getCartTotal,
     query,
-    setQuery
+    setQuery,
+    setCartData,
+    cartCount,
+    cartTotal,
+    updateQuantity
+    
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
