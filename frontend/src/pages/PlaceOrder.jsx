@@ -71,7 +71,7 @@ const PlaceOrder = () => {
       const date = Date.now();
       const amount = Math.round((cartTotal));
 
-      await axios.post(`http://localhost:4000/api/order/create/cod`, {
+      await axios.post(`${VITE_BACKEND_HOST_URL}/api/order/create/cod`, {
         userId,
         items,
         address,
@@ -119,13 +119,13 @@ const PlaceOrder = () => {
       const amount = Math.round((cartTotal + 50));
 
       const res = await axios.post(
-        `http://localhost:4000/api/order/create/stripe`,
+        `${VITE_BACKEND_HOST_URL}/api/order/create/stripe`,
         {
           userId,
           items,
           address,
           paymentType: selectedPayment,
-          amount: amount+50,
+          amount: amount + 50,
           date,
         }
       );
